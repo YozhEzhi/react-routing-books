@@ -19,16 +19,16 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               presets: ['es2015', 'react'],
-            }
-          }
-        ]
-      }
-    ]
+            },
+          },
+        ],
+      },
+    ],
   },
 
   devtool: 'cheap-eval-source-map',
 
   resolve: {
     extensions: ['.js', '.jsx', '.json', '*'],
-  }
+  },
 };

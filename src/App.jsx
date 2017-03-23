@@ -6,23 +6,58 @@ import todos from './todos';
 import Header from './components/Header';
 import Todo from './components/Todo';
 
-function App(props) {
-  return (
-    <main>
-      <Header title={props.title} />
+class App extends React.Component {
+  constructor(props) {
+    super(props);
 
-      <section className="todo-list">
-        {props.todos.map(todo =>
-          <Todo key={todo.id} title={todo.title} completed={todo.completed} />)
-        }
-      </section>
-    </main>
-  );
+    this.state = {
+      todos: this.props.initialData,
+    };
+
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleStatusChange(id) {
+    const todos = this.state.todos.map((todo) => {
+      if (todo.id === id) todo.completed = !todo.completed;
+      return todo;
+    });
+
+    this.setState({ todos });
+  }
+
+  handleDelete(id) {
+    const todos = this.state.todos.filter(todo => todo.id !== id);
+
+    this.setState({ todos });
+  }
+
+  render() {
+    return (
+      <main>
+        <Header title={this.props.title} />
+
+        <section className="todo-list">
+          {this.state.todos.map(todo =>
+            <Todo
+              id={todo.id}
+              key={todo.id}
+              title={todo.title}
+              completed={todo.completed}
+              onStatusChange={this.handleStatusChange}
+              onDelete={this.handleDelete}
+            />)
+          }
+        </section>
+      </main>
+    );
+  }
 }
 
 App.propTypes = {
   title: React.PropTypes.string,
-  todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+  initialData: React.PropTypes.arrayOf(React.PropTypes.shape({
     id: React.PropTypes.number.isRequired,
     title: React.PropTypes.string.isRequired,
     completed: React.PropTypes.bool.isRequired,
@@ -33,4 +68,4 @@ App.defaultProps = {
   title: 'React Todo',
 };
 
-ReactDOM.render(<App todos={todos} />, document.getElementById('root'));
+ReactDOM.render(<App initialData={todos} />, document.getElementById('root'));
