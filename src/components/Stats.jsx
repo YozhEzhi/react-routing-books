@@ -6,7 +6,7 @@ function Stats(props) {
   const uncompletedCount = totalCount - completedCount;
 
   return (
-    <table>
+    <table className="stats">
       <tbody>
         <tr>
           <td>Всего задач:</td>

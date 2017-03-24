@@ -15,9 +15,10 @@ class App extends React.Component {
       todos: this.props.initialData,
     };
 
-    this.handleStatusChange = this.handleStatusChange.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
   nextId() {
@@ -37,7 +38,6 @@ class App extends React.Component {
 
   handleDelete(id) {
     const todos = this.state.todos.filter(todo => todo.id !== id);
-
     this.setState({ todos });
   }
 
@@ -48,6 +48,15 @@ class App extends React.Component {
       completed: false,
     };
     const todos = [...this.state.todos, todo];
+
+    this.setState({ todos });
+  }
+
+  handleEdit(id, title) {
+    const todos = this.state.todos.map((todo) => {
+      if (todo.id === id) todo.title = title;
+      return todo;
+    });
 
     this.setState({ todos });
   }
@@ -66,6 +75,7 @@ class App extends React.Component {
               completed={todo.completed}
               onStatusChange={this.handleStatusChange}
               onDelete={this.handleDelete}
+              onEdit={this.handleEdit}
             />)
           }
         </section>
