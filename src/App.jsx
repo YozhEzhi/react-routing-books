@@ -17,6 +17,13 @@ class App extends React.Component {
 
     this.handleStatusChange = this.handleStatusChange.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
+  }
+
+  nextId() {
+    let highestId = Array.from(this.state.todos).sort((a, b) => a.id < b.id ? 1 : -1)[0].id;
+    highestId += 1;
+    return highestId;
   }
 
   handleStatusChange(id) {
@@ -30,6 +37,17 @@ class App extends React.Component {
 
   handleDelete(id) {
     const todos = this.state.todos.filter(todo => todo.id !== id);
+
+    this.setState({ todos });
+  }
+
+  handleAdd(title) {
+    const todo = {
+      id: this.nextId(),
+      title,
+      completed: false,
+    };
+    const todos = [...this.state.todos, todo];
 
     this.setState({ todos });
   }
@@ -52,7 +70,7 @@ class App extends React.Component {
           }
         </section>
 
-        <Form />
+        <Form onAdd={this.handleAdd} />
       </main>
     );
   }
