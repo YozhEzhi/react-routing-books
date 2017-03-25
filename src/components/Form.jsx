@@ -10,8 +10,8 @@ class Form extends React.Component {
       title: '',
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(event) {
@@ -26,7 +26,6 @@ class Form extends React.Component {
 
   handleChange(event) {
     const title = event.target.value;
-
     this.setState({ title });
   }
 
@@ -34,10 +33,10 @@ class Form extends React.Component {
     return (
       <form className="todo-form" onSubmit={this.handleSubmit}>
         <input
+          onChange={this.handleChange}
+          placeholder="Что нужно сделать?"
           type="text"
           value={this.state.title}
-          placeholder="Что нужно сделать?"
-          onChange={this.handleChange}
         />
         <Button type="submit">Добавить</Button>
       </form>

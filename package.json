@@ -1,7 +1,7 @@
 {
-  "name": "react-basics",
+  "name": "react-todo-list",
   "version": "1.0.0",
-  "description": "Исходный код для курса Основы React",
+  "description": "React todo-list",
   "scripts": {
     "start": "webpack-dev-server --inline --hot --content-base ./docs",
     "build": "webpack -p"

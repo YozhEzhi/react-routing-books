@@ -16,8 +16,7 @@ class Todo extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const title = this.refs.title.value;
-    this.props.onEdit(this.props.id, title);
+    this.props.onEdit(this.props.id, this.refs.title.value);
     this.setState({ editing: false });
   }
 
@@ -30,7 +29,8 @@ class Todo extends React.Component {
         />
         <span className="todo-title">{this.props.title}</span>
         <Button
-          className="edit icon" icon="edit"
+          className="edit icon"
+          icon="edit"
           onClick={() => this.setState({ editing: true })}
         />
         <Button
@@ -57,11 +57,12 @@ class Todo extends React.Component {
 }
 
 Todo.propTypes = {
-  title: React.PropTypes.string.isRequired,
   completed: React.PropTypes.bool.isRequired,
+  id: React.PropTypes.number.isRequired,
   onDelete: React.PropTypes.func.isRequired,
   onEdit: React.PropTypes.func.isRequired,
   onStatusChange: React.PropTypes.func.isRequired,
+  title: React.PropTypes.string.isRequired,
 };
 
 export default Todo;

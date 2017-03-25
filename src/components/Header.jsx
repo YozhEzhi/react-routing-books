@@ -13,7 +13,11 @@ function Header(props) {
 
 Header.propTypes = {
   title: React.PropTypes.string.isRequired,
-  todos: React.PropTypes.array.isRequired,
+  todos: React.PropTypes.arrayOf(React.PropTypes.shape({
+    completed: React.PropTypes.bool.isRequired,
+    id: React.PropTypes.number.isRequired,
+    title: React.PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default Header;

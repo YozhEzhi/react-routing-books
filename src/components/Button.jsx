@@ -18,4 +18,11 @@ Button.propTypes = {
   onClick: React.PropTypes.func,
 };
 
+Button.defaultProps = {
+  children: '',
+  className: '',
+  icon: '',
+  onClick: '',
+};
+
 export default Button;

@@ -22,60 +22,64 @@ class App extends React.Component {
   }
 
   nextId() {
-    let highestId = Array.from(this.state.todos).sort((a, b) => a.id < b.id ? 1 : -1)[0].id;
+    const biggestId = (a, b) => (a.id < b.id) ? 1 : -1;
+    let highestId = Array.from(this.state.todos).sort(biggestId)[0].id;
     highestId += 1;
     return highestId;
   }
 
   handleStatusChange(id) {
-    const todos = this.state.todos.map((todo) => {
+    const todosWithUpdatedStatus = this.state.todos.map((todo) => {
       if (todo.id === id) todo.completed = !todo.completed;
       return todo;
     });
 
-    this.setState({ todos });
+    this.setState({ todos: todosWithUpdatedStatus });
   }
 
   handleDelete(id) {
-    const todos = this.state.todos.filter(todo => todo.id !== id);
-    this.setState({ todos });
+    const todosWithoutRemoved = this.state.todos.filter(todo => todo.id !== id);
+    this.setState({ todos: todosWithoutRemoved });
   }
 
   handleAdd(title) {
     const todo = {
+      completed: false,
       id: this.nextId(),
       title,
-      completed: false,
     };
-    const todos = [...this.state.todos, todo];
+    const todosWithNew = [...this.state.todos, todo];
 
-    this.setState({ todos });
+    this.setState({ todos: todosWithNew });
   }
 
   handleEdit(id, title) {
-    const todos = this.state.todos.map((todo) => {
+    const todosWithUpdatedTitle = this.state.todos.map((todo) => {
       if (todo.id === id) todo.title = title;
       return todo;
     });
 
-    this.setState({ todos });
+    this.setState({ todos: todosWithUpdatedTitle });
   }
 
   render() {
     return (
       <main>
-        <Header title={this.props.title} todos={this.state.todos} />
+        <Header
+          title={this.props.title}
+          todos={this.state.todos}
+        />
 
         <section className="todo-list">
           {this.state.todos.map(todo =>
             <Todo
+              completed={todo.completed}
               id={todo.id}
               key={todo.id}
-              title={todo.title}
-              completed={todo.completed}
-              onStatusChange={this.handleStatusChange}
               onDelete={this.handleDelete}
               onEdit={this.handleEdit}
+              onStatusChange={this.handleStatusChange}
+              title={todo.title}
             />)
           }
         </section>
@@ -87,12 +91,12 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  title: React.PropTypes.string,
   initialData: React.PropTypes.arrayOf(React.PropTypes.shape({
+    completed: React.PropTypes.bool.isRequired,
     id: React.PropTypes.number.isRequired,
     title: React.PropTypes.string.isRequired,
-    completed: React.PropTypes.bool.isRequired,
   })).isRequired,
+  title: React.PropTypes.string,
 };
 
 App.defaultProps = {
