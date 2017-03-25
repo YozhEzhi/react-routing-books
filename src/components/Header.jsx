@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Stopwatch from './Stopwatch';
 import Stats from './Stats';
 
 function Header(props) {
@@ -7,6 +8,7 @@ function Header(props) {
     <header>
       <Stats todos={props.todos} />
       <h1>{props.title}</h1>
+      <Stopwatch />
     </header>
   );
 }

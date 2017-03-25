@@ -14,6 +14,11 @@ class Todo extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!this.state.editing) return;
+    this.refs.title.select();
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     this.props.onEdit(this.props.id, this.refs.title.value);

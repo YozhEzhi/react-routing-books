@@ -22,7 +22,6 @@ Button.defaultProps = {
   children: '',
   className: '',
   icon: '',
-  onClick: '',
 };
 
 export default Button;

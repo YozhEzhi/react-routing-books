@@ -25,8 +25,7 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    const title = event.target.value;
-    this.setState({ title });
+    this.setState({ title: event.target.value });
   }
 
   render() {
