@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import todos from './todos';
 
@@ -12,54 +13,69 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      todos: this.props.initialData,
+      todos: [],
     };
 
-    this.handleAdd = this.handleAdd.bind(this);
+    this.handleCreate = this.handleCreate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
 
-  nextId() {
-    const biggestId = (a, b) => (a.id < b.id) ? 1 : -1;
-    let highestId = Array.from(this.state.todos).sort(biggestId)[0].id;
-    highestId += 1;
-    return highestId;
+  componentDidMount() {
+    axios.get('/api/todos')
+      .then(response => response.data)
+      .then(todos => this.setState({ todos }))
+      .catch(this.handleError);
   }
 
   handleStatusChange(id) {
-    const todosWithUpdatedStatus = this.state.todos.map((todo) => {
-      if (todo.id === id) todo.completed = !todo.completed;
-      return todo;
-    });
+    axios.patch(`/api/todos/${id}`)
+      .then((response) => {
+        const todosWithUpdatedStatus = this.state.todos.map((todo) => {
+          if (todo.id === id) todo = response.data;
+          return todo;
+        });
 
-    this.setState({ todos: todosWithUpdatedStatus });
+        this.setState({ todos: todosWithUpdatedStatus });
+      })
+      .catch(this.handleError);
+  }
+
+  handleCreate(title) {
+    axios.post('/api/todos', { title })
+      .then(response => response.data)
+      .then((todo) => {
+        const todosWithNew = [...this.state.todos, todo];
+        this.setState({ todos: todosWithNew });
+      })
+      .catch(this.handleError);
+  }
+
+  handleUpdate(id, title) {
+    axios.put(`/api/todos/${id}`, { title })
+      .then((response) => {
+        const todosWithUpdatedTitle = this.state.todos.map((todo) => {
+          if (todo.id === id) todo = response.data;
+          return todo;
+        });
+
+        this.setState({ todos: todosWithUpdatedTitle });
+      })
+      .catch(this.handleError);
   }
 
   handleDelete(id) {
-    const todosWithoutRemoved = this.state.todos.filter(todo => todo.id !== id);
-    this.setState({ todos: todosWithoutRemoved });
+    axios.delete(`/api/todos/${id}`)
+      .then(() => {
+        const todosWithoutRemoved = this.state.todos.filter(todo => todo.id !== id);
+        this.setState({ todos: todosWithoutRemoved });
+      })
+      .catch(this.handleError);
   }
 
-  handleAdd(title) {
-    const todo = {
-      completed: false,
-      id: this.nextId(),
-      title,
-    };
-    const todosWithNew = [...this.state.todos, todo];
-
-    this.setState({ todos: todosWithNew });
-  }
-
-  handleEdit(id, title) {
-    const todosWithUpdatedTitle = this.state.todos.map((todo) => {
-      if (todo.id === id) todo.title = title;
-      return todo;
-    });
-
-    this.setState({ todos: todosWithUpdatedTitle });
+  handleError(error) {
+    console.error(error);
   }
 
   render() {
@@ -77,14 +93,14 @@ class App extends React.Component {
               id={todo.id}
               key={todo.id}
               onDelete={this.handleDelete}
-              onEdit={this.handleEdit}
+              onEdit={this.handleUpdate}
               onStatusChange={this.handleStatusChange}
               title={todo.title}
             />)
           }
         </section>
 
-        <Form onAdd={this.handleAdd} />
+        <Form onAdd={this.handleCreate} />
       </main>
     );
   }
