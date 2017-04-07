@@ -1,1 +1,4 @@
-## Just another todo list
+- `npm i` - install dependencies
+- `node server.js` - run local express server
+- `npm start` - start app
+- `npm build` - build production version
