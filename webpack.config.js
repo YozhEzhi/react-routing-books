@@ -1,17 +1,9 @@
-const path = require('path');
-
 module.exports = {
-  entry: './src/App.jsx',
-
-  devServer: {
-    proxy: {
-      '/api': 'http://localhost:3000',
-    },
-  },
+  entry: './src/index.jsx',
 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'docs'),
+    path: './docs',
   },
 
   module: {
@@ -27,6 +19,6 @@ module.exports = {
   devtool: 'eval-source-map',
 
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '*'],
+    extensions: ['', '.js', '.jsx'],
   },
 };
