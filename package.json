@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "React todo-list",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot --content-base ./docs",
+    "start": "webpack-dev-server --inline --content-base ./docs",
     "build": "webpack -p"
   },
   "dependencies": {
@@ -11,7 +11,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "react": "15.4.2",
-    "react-dom": "15.4.2"
+    "react-dom": "15.4.2",
+    "react-addons-css-transition-group": "^15.4.2"
   },
   "devDependencies": {
     "babel-core": "6.23.1",
@@ -23,8 +24,13 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "react-hot-loader": "1.3.1",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.4.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
   }
 }

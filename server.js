@@ -38,7 +38,6 @@ app.post('/api/todos', (req, res) => {
 
 app.put('/api/todos/:id', (req, res) => {
   const todo = todos.find(item => item.id == req.params.id);
-
   if (!todo) return res.sendStatus(404);
 
   todo.title = req.body.title || todo.title;
@@ -47,7 +46,6 @@ app.put('/api/todos/:id', (req, res) => {
 
 app.patch('/api/todos/:id', (req, res) => {
   const todo = todos.find(item => item.id == req.params.id);
-
   if (!todo) return res.sendStatus(404);
 
   todo.completed = !todo.completed;
@@ -56,7 +54,6 @@ app.patch('/api/todos/:id', (req, res) => {
 
 app.delete('/api/todos/:id', (req, res) => {
   const index = todos.findIndex(todo => todo.id == req.params.id);
-
   if (index == -1) return res.sendStatus(404);
 
   todos.splice(index, 1);

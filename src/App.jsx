@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import axios from 'axios';
 
 import todos from './todos';
@@ -86,7 +87,15 @@ class App extends React.Component {
           todos={this.state.todos}
         />
 
-        <section className="todo-list">
+        <ReactCSSTransitionGroup
+          component="section"
+          className="todo-list"
+          transitionAppear
+          transitionAppearTimeout={500}
+          transitionName="slide"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+        >
           {this.state.todos.map(todo =>
             <Todo
               completed={todo.completed}
@@ -98,7 +107,7 @@ class App extends React.Component {
               title={todo.title}
             />)
           }
-        </section>
+        </ReactCSSTransitionGroup>
 
         <Form onAdd={this.handleCreate} />
       </main>
