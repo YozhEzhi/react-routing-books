@@ -1,9 +1,11 @@
+const path = require('path');
+
 module.exports = {
   entry: './src/index.jsx',
 
   output: {
     filename: 'bundle.js',
-    path: './docs',
+    path: path.resolve(__dirname, 'docs'),
   },
 
   module: {
@@ -19,6 +21,6 @@ module.exports = {
   devtool: 'eval-source-map',
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
 };
