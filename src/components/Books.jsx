@@ -1,21 +1,23 @@
 import React from 'react';
 
-function Books() {
-    return (
-        <section className="content books">
-            <div className="mdl-tabs">
-                <div className="mdl-tabs__tab-bar">
-                    <a href="/books/javascript" className="mdl-tabs__tab">JavaScript</a>
-                    <a href="/books/react" className="mdl-tabs__tab">React</a>
-                    <a href="/books/angular" className="mdl-tabs__tab">Angular</a>
-                </div>
-                
-                <div className="mdl-tabs__panel">
-                    
-                </div>
-            </div>
-        </section>
-    );
+import NavLink from './NavLink';
+
+function Books(props) {
+  return (
+    <section className="content books">
+      <div className="mdl-tabs">
+        <div className="mdl-tabs__tab-bar">
+          <NavLink to="/books/javascript" className="mdl-tabs__tab">JavaScript</NavLink>
+          <NavLink to="/books/react" className="mdl-tabs__tab">React</NavLink>
+          <NavLink to="/books/angular" className="mdl-tabs__tab">Angular</NavLink>
+        </div>
+
+        <div className="mdl-tabs__panel">
+          {props.children}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default Books;
