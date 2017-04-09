@@ -4,7 +4,7 @@
     "description": "React routing tutorial",
     "scripts": {
         "start": "webpack-dev-server --inline --content-base ./docs --history-api-fallback",
-        "build": "webpack"
+        "build": "webpack -p"
     },
     "babel": {
         "presets": [
