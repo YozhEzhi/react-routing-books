@@ -1,3 +1,0 @@
-- `npm i` - install dependencies
-- `npm start` - start app
-- `npm run build` - build production version
